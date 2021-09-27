@@ -15,8 +15,8 @@ public class GamePanel extends JPanel implements ActionListener {
     static final int UNIT_SIZE = 25;
     static final int GAME_UNITS = (SCREEN_WIDTH * SCREEN_HEIGHT) / UNIT_SIZE;
     static final int DELAY = 100;
-    final int x[] = new int[GAME_UNITS];
-    final int y[] = new int[GAME_UNITS];
+    final int[] x = new int[GAME_UNITS];
+    final int[] y = new int[GAME_UNITS];
     int bodyParts = 6;
     int applesEaten;
     int appleX;
@@ -71,6 +71,7 @@ public class GamePanel extends JPanel implements ActionListener {
                 }
                 g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
             }
+
             g.setColor(Color.red);
             g.setFont(new Font("Nanum MyungJo", Font.BOLD, 40));
             FontMetrics metrics = getFontMetrics(g.getFont());
@@ -85,8 +86,8 @@ public class GamePanel extends JPanel implements ActionListener {
 
     public void newApple() {
 
-        appleX = random.nextInt((int) (SCREEN_WIDTH / UNIT_SIZE)) * UNIT_SIZE;
-        appleY = random.nextInt((int) (SCREEN_HEIGHT / UNIT_SIZE)) * UNIT_SIZE;
+        appleX = random.nextInt(SCREEN_WIDTH / UNIT_SIZE) * UNIT_SIZE;
+        appleY = random.nextInt(SCREEN_HEIGHT / UNIT_SIZE) * UNIT_SIZE;
     }
 
     public void move() {
@@ -126,6 +127,7 @@ public class GamePanel extends JPanel implements ActionListener {
         for (int i = bodyParts; i > 0; i--) {
             if ((x[0] == x[i]) && (y[0] == y[i])) {
                 running = false;
+                break;
             }
         }
 
@@ -145,7 +147,7 @@ public class GamePanel extends JPanel implements ActionListener {
         }
 
         // 머리가 천장과 충돌하는지 확인
-        if (x[0] > SCREEN_HEIGHT) {
+        if (y[0] > SCREEN_HEIGHT) {
             running = false;
         }
 
